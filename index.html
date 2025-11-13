@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contactos Estudiantes</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+        
+        .subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        
+        .contact-card {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+        
+        .contact-card:active {
+            transform: scale(0.98);
+        }
+        
+        .contact-name {
+            font-weight: 600;
+            font-size: 16px;
+            color: #2d3748;
+            margin-bottom: 4px;
+        }
+        
+        .contact-phone {
+            color: #4a5568;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        
+        .add-button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        
+        .add-button:active {
+            opacity: 0.8;
+        }
+        
+        .add-all {
+            background: white;
+            color: #667eea;
+            padding: 16px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .info {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 12px;
+            border-radius: 8px;
+            color: white;
+            font-size: 13px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📱 Contactos Estudiantes</h1>
+        <p class="subtitle">Software en Modalidades - FACI</p>
+        
+        <div class="info">
+            💡 Toca "Agregar Contacto" para guardar cada número en tu teléfono
+        </div>
+        
+        <div id="contacts"></div>
+    </div>
+
+    <script>
+        const contactos = [
+            { nombre: "SALAS RIOS CRISTHIAN JOSUE", telefono: "0964045551" },
+            { nombre: "CANCHAD CHASCA ADRIAN ALEXANDER", telefono: "0969559280" },
+            { nombre: "VIZUETE ARIAS GIAN PAOLO", telefono: "0959218109" },
+            { nombre: "JIMENEZ BAJANA JEAN PIERRE", telefono: "0994238190" },
+            { nombre: "RONQUILLO GARCIA JOSTYN ALEJANDRO", telefono: "0981854634" },
+            { nombre: "ZUÑIGA NAVARRO ANDREW NATANAEL", telefono: "0988566210" },
+            { nombre: "MANOBANDA FIGUEROA CESAR ARTURO", telefono: "099 749 2981" },
+            { nombre: "PERALTA ROJAS JOHN ANGEL", telefono: "0987404302" },
+            { nombre: "GUERRERO JARA DAYANARA ROSARIO", telefono: "0982860219" },
+            { nombre: "ORDOÑEZ GONZALEZ EDER LEONARDO", telefono: "0961860048" },
+            { nombre: "ESTRADA CAJAS YULISSA CECIBEL", telefono: "0989146937" },
+            { nombre: "TERAN ARELLANO ANTHONY EMILIANO", telefono: "0978958521" }
+        ];
+
+        function limpiarTelefono(tel) {
+            return tel.replace(/\s+/g, '');
+        }
+
+        function crearVCard(nombre, telefono) {
+            const tel = limpiarTelefono(telefono);
+            return `BEGIN:VCARD
+VERSION:3.0
+FN:${nombre}
+TEL;TYPE=CELL:${tel}
+NOTE:Software en Modalidades - FACI
+END:VCARD`;
+        }
+
+        function agregarContacto(nombre, telefono) {
+            const vcard = crearVCard(nombre, telefono);
+            const blob = new Blob([vcard], { type: 'text/vcard' });
+            const url = URL.createObjectURL(blob);
+            
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `${nombre}.vcf`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+
+        function renderizarContactos() {
+            const container = document.getElementById('contacts');
+            
+            contactos.forEach(contacto => {
+                const card = document.createElement('div');
+                card.className = 'contact-card';
+                card.innerHTML = `
+                    <div class="contact-name">${contacto.nombre}</div>
+                    <div class="contact-phone">📞 ${contacto.telefono}</div>
+                    <button class="add-button" onclick="agregarContacto('${contacto.nombre}', '${contacto.telefono}')">
+                        ➕ Agregar Contacto
+                    </button>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        renderizarContactos();
+    </script>
+</body>
+</html>
