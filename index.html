@@ -57,6 +57,12 @@
             margin-bottom: 4px;
         }
         
+        .contact-info {
+            color: #718096;
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+        
         .contact-phone {
             color: #4a5568;
             font-size: 14px;
@@ -90,6 +96,11 @@
             font-weight: 600;
             cursor: pointer;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+        
+        .add-all:active {
+            transform: scale(0.98);
         }
         
         .info {
@@ -101,57 +112,99 @@
             text-align: center;
             margin-bottom: 20px;
         }
+        
+        .section-title {
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            margin: 20px 0 10px 0;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>📱 Contactos Estudiantes</h1>
-        <p class="subtitle">Software en Modalidades - FACI</p>
+        <p class="subtitle">Psicología y Turismo - FACE</p>
         
         <div class="info">
             💡 Toca "Agregar Contacto" para guardar cada número en tu teléfono
         </div>
         
         <div class="add-all" onclick="guardarTodos()">
-            💾 Guardar Todos los Contactos (12)
+            💾 Guardar Todos los Contactos (35)
         </div>
         
-        <div id="contacts"></div>
+        <div class="section-title">🧠 Psicología en Línea (15)</div>
+        <div id="psicologia"></div>
+        
+        <div class="section-title">✈️ Turismo en Línea (20)</div>
+        <div id="turismo"></div>
     </div>
 
     <script>
-        const contactos = [
-            { nombre: "SALAS RIOS CRISTHIAN JOSUE", telefono: "0964045551" },
-            { nombre: "CANCHAD CHASCA ADRIAN ALEXANDER", telefono: "0969559280" },
-            { nombre: "VIZUETE ARIAS GIAN PAOLO", telefono: "0959218109" },
-            { nombre: "JIMENEZ BAJANA JEAN PIERRE", telefono: "0994238190" },
-            { nombre: "RONQUILLO GARCIA JOSTYN ALEJANDRO", telefono: "0981854634" },
-            { nombre: "ZUÑIGA NAVARRO ANDREW NATANAEL", telefono: "0988566210" },
-            { nombre: "MANOBANDA FIGUEROA CESAR ARTURO", telefono: "099 749 2981" },
-            { nombre: "PERALTA ROJAS JOHN ANGEL", telefono: "0987404302" },
-            { nombre: "GUERRERO JARA DAYANARA ROSARIO", telefono: "0982860219" },
-            { nombre: "ORDOÑEZ GONZALEZ EDER LEONARDO", telefono: "0961860048" },
-            { nombre: "ESTRADA CAJAS YULISSA CECIBEL", telefono: "0989146937" },
-            { nombre: "TERAN ARELLANO ANTHONY EMILIANO", telefono: "0978958521" }
+        const contactosPsicologia = [
+            { nombre: "Ginger Charria", carrera: "Psicología", telefono: "0959956313" },
+            { nombre: "Nancy Sanchez", carrera: "Psicología", telefono: "0987491125" },
+            { nombre: "Joceline Quiñonez", carrera: "Psicología", telefono: "0991504590" },
+            { nombre: "Karen Villao", carrera: "Psicología", telefono: "0980287114" },
+            { nombre: "Maria Baque", carrera: "Psicología", telefono: "0969569766" },
+            { nombre: "Mayra Castro", carrera: "Psicología", telefono: "0995180630" },
+            { nombre: "Dennys Lizano", carrera: "Psicología", telefono: "0995543166" },
+            { nombre: "Glenda Baque", carrera: "Psicología", telefono: "0992383182" },
+            { nombre: "Ana Ortiz", carrera: "Psicología", telefono: "0994977465" },
+            { nombre: "Sandra Morocho", carrera: "Psicología", telefono: "0992797669" },
+            { nombre: "Mayerly Zambrano", carrera: "Psicología", telefono: "0986066299" },
+            { nombre: "Angelica Espinoza", carrera: "Psicología", telefono: "0980227189" },
+            { nombre: "Mariuxi Bravo", carrera: "Psicología", telefono: "0985532060" },
+            { nombre: "Leydi Rivas", carrera: "Psicología", telefono: "0993072384" },
+            { nombre: "Genesis Palma", carrera: "Psicología", telefono: "0984994158" }
         ];
+
+        const contactosTurismo = [
+            { nombre: "Edwin Diaz", carrera: "Turismo", telefono: "0984994158" },
+            { nombre: "Jessenia Mindiola", carrera: "Turismo", telefono: "0997438288" },
+            { nombre: "Katherine Marquez", carrera: "Turismo", telefono: "0981411887" },
+            { nombre: "Mercedes Contreras", carrera: "Turismo", telefono: "0992711996" },
+            { nombre: "Kerly Diaz", carrera: "Turismo", telefono: "0984321894" },
+            { nombre: "Ginger Ramirez", carrera: "Turismo", telefono: "0980310255" },
+            { nombre: "Maria Marcatoma", carrera: "Turismo", telefono: "0981521405" },
+            { nombre: "Edison Sarango", carrera: "Turismo", telefono: "0995168051" },
+            { nombre: "Nancy Mejia", carrera: "Turismo", telefono: "0982563283" },
+            { nombre: "Hector Castro", carrera: "Turismo", telefono: "0999587428" },
+            { nombre: "Cristhian Rivera", carrera: "Turismo", telefono: "0987309538" },
+            { nombre: "Maira Suarez", carrera: "Turismo", telefono: "0992790906" },
+            { nombre: "Mayra Villacis", carrera: "Turismo", telefono: "0993952796" },
+            { nombre: "Adriana Riera", carrera: "Turismo", telefono: "0999903728" },
+            { nombre: "Katherine Velasquez", carrera: "Turismo", telefono: "0995400938" },
+            { nombre: "Steeven Garcia", carrera: "Turismo", telefono: "0999988220" },
+            { nombre: "Veronica Carreño", carrera: "Turismo", telefono: "0992523293" },
+            { nombre: "Gustavo Bajaña", carrera: "Turismo", telefono: "0985223315" },
+            { nombre: "Lisseth Pico", carrera: "Turismo", telefono: "0997184496" },
+            { nombre: "Luis Romero", carrera: "Turismo", telefono: "0987053075" }
+        ];
+
+        const todosContactos = [...contactosPsicologia, ...contactosTurismo];
 
         function limpiarTelefono(tel) {
             return tel.replace(/\s+/g, '');
         }
 
-        function crearVCard(nombre, telefono) {
+        function crearVCard(nombre, telefono, carrera) {
             const tel = limpiarTelefono(telefono);
             return `BEGIN:VCARD
 VERSION:3.0
 FN:${nombre}
 TEL;TYPE=CELL:${tel}
-NOTE:Software en Modalidades - FACI
+NOTE:${carrera} - FACE
 END:VCARD`;
         }
 
-        function agregarContacto(nombre, telefono) {
-            const vcard = crearVCard(nombre, telefono);
-            const blob = new Blob([vcard], { type: 'text/vcard' });
+        function agregarContacto(nombre, telefono, carrera) {
+            const vcard = crearVCard(nombre, telefono, carrera);
+            const blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8' });
             const url = URL.createObjectURL(blob);
             
             const link = document.createElement('a');
@@ -160,19 +213,29 @@ END:VCARD`;
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-            URL.revokeObjectURL(url);
+            
+            setTimeout(() => URL.revokeObjectURL(url), 100);
         }
 
-        function renderizarContactos() {
-            const container = document.getElementById('contacts');
+        function guardarTodos() {
+            todosContactos.forEach((contacto, index) => {
+                setTimeout(() => {
+                    agregarContacto(contacto.nombre, contacto.telefono, contacto.carrera);
+                }, index * 300);
+            });
+        }
+
+        function renderizarContactos(contactos, containerId) {
+            const container = document.getElementById(containerId);
             
             contactos.forEach(contacto => {
                 const card = document.createElement('div');
                 card.className = 'contact-card';
                 card.innerHTML = `
                     <div class="contact-name">${contacto.nombre}</div>
+                    <div class="contact-info">📚 ${contacto.carrera}</div>
                     <div class="contact-phone">📞 ${contacto.telefono}</div>
-                    <button class="add-button" onclick="agregarContacto('${contacto.nombre}', '${contacto.telefono}')">
+                    <button class="add-button" onclick="agregarContacto('${contacto.nombre}', '${contacto.telefono}', '${contacto.carrera}')">
                         ➕ Agregar Contacto
                     </button>
                 `;
@@ -180,7 +243,8 @@ END:VCARD`;
             });
         }
 
-        renderizarContactos();
+        renderizarContactos(contactosPsicologia, 'psicologia');
+        renderizarContactos(contactosTurismo, 'turismo');
     </script>
 </body>
 </html>
