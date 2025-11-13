@@ -194,11 +194,12 @@
 
         function crearVCard(nombre, telefono, carrera) {
             const tel = limpiarTelefono(telefono);
+            const nombreConFace = `${nombre} FACE`;
             return `BEGIN:VCARD
 VERSION:3.0
-FN:${nombre}
+FN:${nombreConFace}
 TEL;TYPE=CELL:${tel}
-NOTE:${carrera} - FACE
+NOTE:${carrera}
 END:VCARD`;
         }
 
